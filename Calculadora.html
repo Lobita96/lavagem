@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Lavagem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f0f0;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input[type="number"], button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .switch-container {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .switch-label {
+      margin-right: 10px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #4CAF50;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .resultados {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .resultado-item {
+      margin-bottom: 15px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .resultado-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Calculadora de Lavagem</h2>
+  
+  <label for="valorTotal">Valor Total (R$):</label>
+  <input type="number" id="valorTotal" placeholder="Valor Sujo" step="0.01" />
+
+  <div class="switch-container">
+    <span class="switch-label">Parceria:</span>
+    <label class="switch">
+      <input type="checkbox" id="parceriaSwitch">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <button onclick="calcularDescontos()">Calcular</button>
+
+  <div class="resultados" id="resultados" style="display: none;">
+    <h3>Resultados:</h3>
+    <div class="resultado-item">
+      <strong>Valor Total:</strong> <span id="valorOriginal"></span>
+    </div>
+
+    <div class="resultado-item">
+      <strong>Desconto de 5%:</strong><br>
+      - Valor da Máquina: <span id="valorDesc5"></span><br>
+      - Valor Final: <span id="valorFinal5"></span>
+    </div>
+
+    <div class="resultado-item" id="bloco25" style="display: none;">
+      <strong>Desconto de 25%:</strong><br>
+      - Valor Lucro: <span id="valorDesc25"></span><br>
+      - Valor Repasse: <span id="valorFinal25"></span>
+    </div>
+
+    <div class="resultado-item" id="bloco40" style="display: none;">
+      <strong>Desconto de 40%:</strong><br>
+      - Valor Lucro: <span id="valorDesc40"></span><br>
+      - Valor Repasse: <span id="valorFinal40"></span>
+    </div>
+  </div>
+
+  <script>
+    function formatar(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function calcularDescontos() {
+      const valorTotal = parseFloat(document.getElementById("valorTotal").value);
+      const parceriaAtiva = document.getElementById("parceriaSwitch").checked;
+
+      if (isNaN(valorTotal) || valorTotal <= 0) {
+        alert("Por favor, insira um valor válido.");
+        return;
+      }
+
+      const desconto5 = valorTotal * 0.05;
+      const desconto25 = valorTotal * 0.25;
+      const desconto40 = valorTotal * 0.40;
+
+      document.getElementById("valorOriginal").innerText = formatar(valorTotal);
+      document.getElementById("valorDesc5").innerText = formatar(desconto5);
+      document.getElementById("valorFinal5").innerText = formatar(valorTotal - desconto5);
+
+      if (parceriaAtiva) {
+        // Parceria = SIM => 5% e 25%
+        document.getElementById("bloco25").style.display = "block";
+        document.getElementById("bloco40").style.display = "none";
+
+        document.getElementById("valorDesc25").innerText = formatar(desconto25);
+        document.getElementById("valorFinal25").innerText = formatar(valorTotal - desconto25);
+      } else {
+        // Parceria = NÃO => 5% e 40%
+        document.getElementById("bloco25").style.display = "none";
+        document.getElementById("bloco40").style.display = "block";
+
+        document.getElementById("valorDesc40").innerText = formatar(desconto40);
+        document.getElementById("valorFinal40").innerText = formatar(valorTotal - desconto40);
+      }
+
+      document.getElementById("resultados").style.display = "block";
+    }
+  </script>
+</body>
+</html>
