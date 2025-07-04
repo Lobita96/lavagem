@@ -95,7 +95,75 @@
   <h2>Calculadora de Lavagem</h2>
   
   <label for="valorTotal">Valor Total (R$):</label>
-  <input type="number" id="valorTotal" placeholder="Valor Sujo" step="0.01" />
+<input type="text" id="valorTotal" placeholder="Valor Sujo" oninput="mascararValor(this)" />
+
+<script>
+  function mascararValor(elemento) {
+    let valor = elemento.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+    if (valor.length === 0) {
+      elemento.value = "";
+      return;
+    }
+
+    // Divide por 100 para ter 2 casas decimais
+    valor = (parseFloat(valor) / 100).toFixed(2);
+
+    // Formata como moeda brasileira
+    elemento.value = parseFloat(valor).toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  // Converte o valor formatado de volta para número para cálculos
+  function obterValorNumericoFormatado(campoId) {
+    const valorFormatado = document.getElementById(campoId).value;
+    return parseFloat(valorFormatado.replace(/\./g, "").replace(",", "."));
+  }
+
+  function calcularDescontos() {
+    const valorTotal = obterValorNumericoFormatado("valorTotal");
+    const parceriaAtiva = document.getElementById("parceriaSwitch").checked;
+
+    if (isNaN(valorTotal) || valorTotal <= 0) {
+      alert("Por favor, insira um valor válido.");
+      return;
+    }
+
+    const desconto5 = valorTotal * 0.05;
+    const desconto25 = valorTotal * 0.25;
+    const desconto40 = valorTotal * 0.40;
+
+    document.getElementById("valorOriginal").innerText = formatar(valorTotal);
+    document.getElementById("valorDesc5").innerText = formatar(desconto5);
+    document.getElementById("valorFinal5").innerText = formatar(valorTotal - desconto5);
+
+    if (parceriaAtiva) {
+      document.getElementById("bloco25").style.display = "block";
+      document.getElementById("bloco40").style.display = "none";
+
+      document.getElementById("valorDesc25").innerText = formatar(desconto25);
+      document.getElementById("valorFinal25").innerText = formatar(valorTotal - desconto25);
+    } else {
+      document.getElementById("bloco25").style.display = "none";
+      document.getElementById("bloco40").style.display = "block";
+
+      document.getElementById("valorDesc40").innerText = formatar(desconto40);
+      document.getElementById("valorFinal40").innerText = formatar(valorTotal - desconto40);
+    }
+
+    document.getElementById("resultados").style.display = "block";
+  }
+
+  function formatar(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
+</script>
+
 
   <div class="switch-container">
     <span class="switch-label">Parceria:</span>
