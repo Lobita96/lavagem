@@ -200,49 +200,5 @@
     </div>
   </div>
 
-  <script>
-    function formatar(valor) {
-      return valor.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      });
-    }
-
-    function calcularDescontos() {
-      const valorTotal = parseFloat(document.getElementById("valorTotal").value);
-      const parceriaAtiva = document.getElementById("parceriaSwitch").checked;
-
-      if (isNaN(valorTotal) || valorTotal <= 0) {
-        alert("Por favor, insira um valor válido.");
-        return;
-      }
-
-      const desconto5 = valorTotal * 0.05;
-      const desconto25 = valorTotal * 0.25;
-      const desconto40 = valorTotal * 0.40;
-
-      document.getElementById("valorOriginal").innerText = formatar(valorTotal);
-      document.getElementById("valorDesc5").innerText = formatar(desconto5);
-      document.getElementById("valorFinal5").innerText = formatar(valorTotal - desconto5);
-
-      if (parceriaAtiva) {
-        // Parceria = SIM => 5% e 25%
-        document.getElementById("bloco25").style.display = "block";
-        document.getElementById("bloco40").style.display = "none";
-
-        document.getElementById("valorDesc25").innerText = formatar(desconto25);
-        document.getElementById("valorFinal25").innerText = formatar(valorTotal - desconto25);
-      } else {
-        // Parceria = NÃO => 5% e 40%
-        document.getElementById("bloco25").style.display = "none";
-        document.getElementById("bloco40").style.display = "block";
-
-        document.getElementById("valorDesc40").innerText = formatar(desconto40);
-        document.getElementById("valorFinal40").innerText = formatar(valorTotal - desconto40);
-      }
-
-      document.getElementById("resultados").style.display = "block";
-    }
-  </script>
 </body>
 </html>
