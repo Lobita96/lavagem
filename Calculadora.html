@@ -133,7 +133,7 @@
 
     const desconto5 = valorTotal * 0.05;
     const desconto25 = valorTotal * 0.25;
-    const desconto40 = valorTotal * 0.40;
+    const desconto35 = valorTotal * 0.35;
 
     document.getElementById("valorOriginal").innerText = formatar(valorTotal);
     document.getElementById("valorDesc5").innerText = formatar(desconto5);
@@ -149,8 +149,8 @@
       document.getElementById("bloco25").style.display = "none";
       document.getElementById("bloco40").style.display = "block";
 
-      document.getElementById("valorDesc40").innerText = formatar(desconto40);
-      document.getElementById("valorFinal40").innerText = formatar(valorTotal - desconto40);
+      document.getElementById("valorDesc35").innerText = formatar(desconto35);
+      document.getElementById("valorFinal35").innerText = formatar(valorTotal - desconto40);
     }
 
     document.getElementById("resultados").style.display = "block";
@@ -194,7 +194,7 @@
     </div>
 
     <div class="resultado-item" id="bloco40" style="display: none;">
-      <strong>Desconto de 40%:</strong><br>
+      <strong>Desconto de 35%:</strong><br>
       - Valor Lucro: <span id="valorDesc40"></span><br>
       - Valor Repasse: <span id="valorFinal40"></span>
     </div>
