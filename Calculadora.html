@@ -141,16 +141,16 @@
 
     if (parceriaAtiva) {
       document.getElementById("bloco25").style.display = "block";
-      document.getElementById("bloco40").style.display = "none";
+      document.getElementById("bloco35").style.display = "none";
 
       document.getElementById("valorDesc25").innerText = formatar(desconto25);
       document.getElementById("valorFinal25").innerText = formatar(valorTotal - desconto25);
     } else {
       document.getElementById("bloco25").style.display = "none";
-      document.getElementById("bloco40").style.display = "block";
+      document.getElementById("bloco35").style.display = "block";
 
       document.getElementById("valorDesc35").innerText = formatar(desconto35);
-      document.getElementById("valorFinal35").innerText = formatar(valorTotal - desconto40);
+      document.getElementById("valorFinal35").innerText = formatar(valorTotal - desconto35);
     }
 
     document.getElementById("resultados").style.display = "block";
@@ -193,10 +193,10 @@
       - Valor Repasse: <span id="valorFinal25"></span>
     </div>
 
-    <div class="resultado-item" id="bloco40" style="display: none;">
+    <div class="resultado-item" id="bloco35" style="display: none;">
       <strong>Desconto de 35%:</strong><br>
-      - Valor Lucro: <span id="valorDesc40"></span><br>
-      - Valor Repasse: <span id="valorFinal40"></span>
+      - Valor Lucro: <span id="valorDesc35"></span><br>
+      - Valor Repasse: <span id="valorFinal35"></span>
     </div>
   </div>
 
