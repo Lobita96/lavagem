@@ -137,8 +137,7 @@
 
     document.getElementById("valorOriginal").innerText = formatar(valorTotal);
     document.getElementById("valorDesc5").innerText = formatar(desconto5);
-    document.getElementById("valorFinal5").innerText = formatar(valorTotal - desconto5);
-
+    
     if (parceriaAtiva) {
       document.getElementById("bloco25").style.display = "block";
       document.getElementById("bloco35").style.display = "none";
@@ -184,8 +183,7 @@
     <div class="resultado-item">
       <strong>Desconto de 5%:</strong><br>
       - Valor da Máquina: <span id="valorDesc5"></span><br>
-      - Valor Final: <span id="valorFinal5"></span>
-    </div>
+          </div>
 
     <div class="resultado-item" id="bloco25" style="display: none;">
       <strong>Desconto de 25%:</strong><br>
